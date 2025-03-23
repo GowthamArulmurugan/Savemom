@@ -40,7 +40,7 @@ export default function HospitalAssistant() {
             </main>
           </div>
         </div>
-        {showSearchBar && <SearchBar />}
+        <SearchBar />
       </div>
     </UserProvider>
   )

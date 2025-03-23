@@ -1,33 +1,39 @@
 "use client"
 
 import type React from "react"
+
 import { useState } from "react"
 import { Mic } from "lucide-react"
 
 export default function SearchBar() {
-  const [message, setMessage] = useState("")
+  const [query, setQuery] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (message.trim()) {
-      console.log("Message sent:", message)
-      setMessage("")
+    if (query.trim()) {
+      console.log("Search query:", query)
+      setQuery("")
     }
   }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t py-3 px-4 z-10">
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto flex items-center gap-2">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type here..."
-          className="flex-1 py-2 px-4 border rounded-full focus:outline-none focus:ring-1 focus:ring-teal-500"
-        />
-        <button type="button" className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100">
-          <Mic className="h-5 w-5" />
-        </button>
+      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
+        <div className="relative">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Type here..."
+            className="w-full py-2 px-4 pr-12 bg-gray-100 border-none rounded-full focus:outline-none focus:ring-1 focus:ring-teal-500"
+          />
+          <button
+            type="button"
+            className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-[#4DD0C9] text-white rounded-full"
+          >
+            <Mic className="h-5 w-5" />
+          </button>
+        </div>
       </form>
     </div>
   )

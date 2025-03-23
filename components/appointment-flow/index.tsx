@@ -1,16 +1,37 @@
 "use client"
 
 import { useState } from "react"
-import DoctorSelection from "./doctor-selection"
-import DateTimeSelection from "./date-time-selection"
-import AppointmentConfirmation from "./appointment-confirmation"
-import AppointmentSuccess from "./appointment-success"
 import { useUser } from "../user-context"
 import { useIsMobile } from "@/hooks/use-mobile"
+import DoctorSelection from "./doctor-selection"
+import DateTimeSelection from "./date-time-selection"
+import TimeSelection from "./time-selection"
+import AppointmentConfirmation from "./appointment-confirmation"
+import AppointmentSuccess from "./appointment-success"
 
 interface AppointmentFlowProps {
   onNavigate: (section: string) => void
 }
+
+// Mock doctors data
+const doctors = [
+  {
+    id: "doc1",
+    name: "Dr. Sameeta Gopal",
+    department: "Gynecologist",
+    qualification: "MBBS, MD",
+    experience: "8 yr exp.",
+    availableDays: ["Monday", "Wednesday", "Friday"],
+  },
+  {
+    id: "doc2",
+    name: "Dr. Renuka C.M",
+    department: "Gynecologist",
+    qualification: "MBBS, MD",
+    experience: "5 yr exp.",
+    availableDays: ["Tuesday", "Thursday", "Saturday"],
+  },
+]
 
 export default function AppointmentFlow({ onNavigate }: AppointmentFlowProps) {
   const { addAppointment } = useUser()
@@ -19,28 +40,6 @@ export default function AppointmentFlow({ onNavigate }: AppointmentFlowProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const isMobile = useIsMobile()
-
-  // Mock doctors data
-  const doctors = [
-    {
-      id: "doc1",
-      name: "Dr. Sameeta Gopal",
-      department: "Gynecologist",
-      qualification: "MBBS, MD",
-      experience: "8 yr exp.",
-      image: "/placeholder.svg?height=80&width=80",
-      availableDays: ["Monday", "Wednesday", "Friday"],
-    },
-    {
-      id: "doc2",
-      name: "Dr. Renuka C M",
-      department: "Gynecologist",
-      qualification: "MBBS, MD",
-      experience: "5 yr exp.",
-      image: "/placeholder.svg?height=80&width=80",
-      availableDays: ["Tuesday", "Thursday", "Saturday"],
-    },
-  ]
 
   const handleDoctorSelect = (doctor: any) => {
     setSelectedDoctor(doctor)
@@ -52,61 +51,52 @@ export default function AppointmentFlow({ onNavigate }: AppointmentFlowProps) {
     setStep(3)
   }
 
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time)
+    setStep(4)
+  }
+
   const handleConfirm = () => {
     // Add the appointment to the user's appointments
     addAppointment({
       doctorName: selectedDoctor.name,
-      doctorImage: selectedDoctor.image,
       date: selectedDate!,
       time: selectedTime || "10:00 AM",
       status: "upcoming",
       department: selectedDoctor.department,
     })
-    setStep(4)
+    setStep(5)
   }
 
   const renderStep = () => {
     switch (step) {
       case 1:
-        return (
-          <DoctorSelection
-            doctors={doctors}
-            onSelect={handleDoctorSelect}
-            isMobile={isMobile}
-            onNavigate={onNavigate}
-          />
-        )
+        return <DoctorSelection doctors={doctors} onSelect={handleDoctorSelect} onBack={() => onNavigate("welcome")} />
       case 2:
+        return <DateTimeSelection doctor={selectedDoctor} onSelectDate={handleDateSelect} onBack={() => setStep(1)} />
+      case 3:
         return (
-          <DateTimeSelection
+          <TimeSelection
             doctor={selectedDoctor}
-            onSelectDate={handleDateSelect}
-            onBack={() => setStep(1)}
-            isMobile={isMobile}
+            date={selectedDate!}
+            onSelectTime={handleTimeSelect}
+            onBack={() => setStep(2)}
           />
         )
-      case 3:
+      case 4:
         return (
           <AppointmentConfirmation
             doctor={selectedDoctor}
             date={selectedDate!}
             time={selectedTime || "10:00 AM"}
             onConfirm={handleConfirm}
-            onBack={() => setStep(2)}
-            isMobile={isMobile}
+            onBack={() => setStep(3)}
           />
         )
-      case 4:
-        return <AppointmentSuccess onDone={() => onNavigate("welcome")} isMobile={isMobile} />
+      case 5:
+        return <AppointmentSuccess onDone={() => onNavigate("welcome")} />
       default:
-        return (
-          <DoctorSelection
-            doctors={doctors}
-            onSelect={handleDoctorSelect}
-            isMobile={isMobile}
-            onNavigate={onNavigate}
-          />
-        )
+        return <DoctorSelection doctors={doctors} onSelect={handleDoctorSelect} onBack={() => onNavigate("welcome")} />
     }
   }
 
