@@ -22,7 +22,7 @@ export default function DoctorSelection({ doctors, onSelect, onBack }: DoctorSel
       headerContent={
         <>
           <div className="mb-6">
-            <h1 className="text-xl font-medium text-blue-500 mb-1">Hello {user.name}</h1>
+            <h1 className="text-xl font-medium text-[#4DD0C9]-500 mb-1">Hello {user.name}</h1>
           </div>
           <SectionHeader
             title="My Appointments"

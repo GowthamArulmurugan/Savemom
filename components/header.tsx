@@ -24,7 +24,7 @@ export default function Header({ isMobile = false, onNavigate }: HeaderProps) {
         <div className="flex items-center cursor-pointer" onClick={handleLogoClick}>
           <div className="w-10 h-10 mr-3">
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download.jpg-lRv4dCFj2uZ1BcBjagXv76lNWskQIl.jpeg"
+              src='/images/download.jpg'
               alt="Savemom Logo"
               className="w-full h-full object-contain rounded-md"
             />
