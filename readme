@@ -1,0 +1,77 @@
+# Savemom Healthcare App
+
+## Overview
+Savemom Healthcare App is a **Single Page Application (SPA)** designed to streamline hospital assistance services. Built with **React and Next.js**, the app enables users to book appointments, conduct check-ups, and manage reports efficiently with a responsive UI.
+
+## Features
+- **Responsive UI**: Mobile-first design using Tailwind CSS.
+- **Appointment Booking**: Users can book and confirm appointments.
+- **Check-Up Flow**: Guides users through a medical check-up process.
+- **Reports Management**: Displays patient history and downloadable reports.
+- **Navigation System**: Users can switch between different sections seamlessly.
+- **Search Functionality**: Quick access to relevant information via search.
+
+## Technology Stack
+- **Framework:** Next.js (v15.1.0)
+- **Language:** JavaScript (ES6+), TypeScript
+- **UI Library:** Tailwind CSS
+- **State Management:** React Hooks (`useState`)
+- **Authentication:** Context API (`UserProvider`)
+- **Deployment:** Render ([Live Demo](https://savemom.onrender.com/))
+
+## Installation & Setup
+1. **Clone the Repository**
+   ```sh
+   git clone https://github.com/your-username/savemom-healthcare.git
+   cd savemom-healthcare
+   ```
+2. **Install Dependencies**
+   ```sh
+   npm install
+   ```
+3. **Run the Development Server**
+   ```sh
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+4. **Build for Production**
+   ```sh
+   npm run build
+   npm run start
+   ```
+
+## Folder Structure
+```
+📦 savemom-healthcare
+├── 📂 public          # Static assets (images, etc.)
+├── 📂 components      # Reusable React components
+├── 📂 hooks           # Custom React hooks
+├── 📂 layout          # Page layout components
+├── 📂 pages           # Next.js pages
+├── 📂 styles          # Tailwind and global styles
+├── 📜 package.json    # Project dependencies
+├── 📜 next.config.js  # Next.js configuration
+└── 📜 README.md       # Project documentation
+```
+
+## Deployment
+The app is deployed on **Render** and can be accessed at: [https://savemom.onrender.com/](https://savemom.onrender.com/)
+
+To deploy manually:
+```sh
+npm run build
+npm run start
+```
+
+## Future Improvements
+- Backend API integration for real-time appointment data.
+- Authentication & user roles.
+- Dark mode support.
+- Improved UI animations and accessibility features.
+
+## Contributing
+Contributions are welcome! Feel free to submit a PR or open an issue.
+
+## License
+This project is licensed under the MIT License.
