@@ -7,8 +7,8 @@ import AppointmentFlow from "@/components/appointment-flow"
 import ReportsFlow from "@/components/reports-flow"
 import { UserProvider } from "@/components/user-context"
 import Header from "@/components/header"
-import { useIsMobile } from "@/hooks/use-mobile"
 import SearchBar from "@/components/search-bar"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function HospitalAssistant() {
   const [activeSection, setActiveSection] = useState("welcome")
@@ -28,18 +28,20 @@ export default function HospitalAssistant() {
         return <WelcomeScreen onNavigate={setActiveSection} />
     }
   }
-  const showSearchBar = isMobile
+
   return (
     <UserProvider>
       <div className="flex flex-col min-h-screen bg-gray-50">
         <Header isMobile={isMobile} onNavigate={setActiveSection} />
+
         <div className="flex flex-1">
           <div className="flex-1 flex flex-col">
-            <main className="flex-1 p-4 md:p-6 lg:p-8 pb-20 md:pb-8">
+            <main className="flex-1 p-4 md:p-6 lg:p-8 pb-24">
               <div className="max-w-4xl mx-auto w-full">{renderContent()}</div>
             </main>
           </div>
         </div>
+
         <SearchBar />
       </div>
     </UserProvider>

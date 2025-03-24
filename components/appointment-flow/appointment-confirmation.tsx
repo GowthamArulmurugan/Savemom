@@ -1,39 +1,50 @@
 "use client"
 
-import { Card, CardContent } from "../ui/card"
 import { Button } from "../ui/button"
-import { useUser } from "../user-context"
+import { format } from "date-fns"
+import SectionLayout from "../layout/section-layout"
+import SectionHeader from "../layout/section-header"
+import SelectionItem from "../common/selection-item"
 
-interface AppointmentSuccessProps {
-  onDone: () => void
-  isMobile: boolean
+interface AppointmentConfirmationProps {
+  doctor: any
+  date: Date
+  time: string
+  onConfirm: () => void
+  onBack: () => void
 }
 
-export default function AppointmentSuccess({ onDone, isMobile }: AppointmentSuccessProps) {
-  const { user } = useUser()
-
+export default function AppointmentConfirmation({
+  doctor,
+  date,
+  time,
+  onConfirm,
+  onBack,
+}: AppointmentConfirmationProps) {
   return (
-    <div className={isMobile ? "" : "max-w-4xl mx-auto"}>
-      <Card className="bg-[#f0f9f8] shadow-sm border border-gray-100 overflow-hidden">
-        <CardContent className="p-5">
-          <div className="bg-[#8de0d3] rounded-lg p-3 mb-6">
-            <h2 className="text-sm font-medium text-white text-center">My Appointments</h2>
-          </div>
-
-          <div className="text-center py-4">
-            <div className="w-full mb-4">
-              <img src="/images/pregnant-woman-clean.png" alt="Pregnant Woman" className="w-40 h-auto mx-auto" />
-            </div>
-
-            <h2 className="text-xl font-semibold mb-2 text-[#4DD0C9]">Appointment Confirmed!</h2>
-
-            <Button onClick={onDone} className="bg-[#4DD0C9] hover:bg-teal-600 mt-4">
-              Return to Home
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+    <SectionLayout
+      title="My Appointments"
+      subtitle="Confirm your appointment details"
+      onBack={onBack}
+      backText="Back to time selection"
+      headerContent={
+        <>
+          <SectionHeader title="My Appointments" />
+          <SelectionItem
+            label="Selected doctor"
+            value={`${doctor.name} | ${doctor.department} | ${doctor.qualification}`}
+          />
+          <SelectionItem label="Selected Date" value={format(date, "do MMMM yyyy, EEEE")} />
+          <SelectionItem label="Selected Time-slot" value={`Morning slot: ${time} IST`} onChangeClick={onBack} />
+        </>
+      }
+    >
+      <div className="mb-20 md:mb-0">
+        <Button onClick={onConfirm} className="w-full bg-[#4DD0C9] hover:bg-teal-600">
+          Confirm Appointment
+        </Button>
+      </div>
+    </SectionLayout>
   )
 }
 
